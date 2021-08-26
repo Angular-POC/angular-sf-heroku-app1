@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // tslint:disable-next-line: no-unused-expression
+      var eventMethod = window.addEventListener
+        ? "addEventListener"
+        : "attachEvent";
+      var eventer = window[eventMethod];
+      var messageEvent =
+        eventMethod === "attachEvent" ? "onmessage" : "message";
+      eventer(messageEvent, function (e) {
+        var messageData =
+          e.data instanceof Object ? e.data : JSON.parse(e.data);
+        if (messageData.type == "GET_SESSION_DETAILS") {
+          if (messageData.data != null) {
+            sendSessionDetails();
+          }
+        }
+      });
+
+      function sendSessionDetails() {
+        sessionDetails = [
+          {
+            DeviceSessionId: "de545a27231d58f0e3720c243b1ed655903aea3a",
+          },
+        ];
+        var obj = {
+          type: "GET_SESSION_DETAILS_RESPONSE",
+          data: sessionDetails,
+        };
+        document
+          .getElementById("childFrame")
+          .contentWindow.postMessage(JSON.stringify(obj), "*");
+      }
+    </script>
+  </head>
+  <body>
+    <iframe id="childFrame" src="index.html"></iframe>
+  </body>
+</html>
