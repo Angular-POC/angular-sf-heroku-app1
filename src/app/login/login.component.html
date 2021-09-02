@@ -1,0 +1,101 @@
+<div *ngIf="!isLoggedin" style="text-align: center">
+  <h2 style="color: red">Login Here!!!</h2>
+  <div style="padding: 10px">
+    <label>User Id: </label>
+    <input type="text" [(ngModel)]="displayUserName" />
+  </div>
+  <div style="padding: 10px">
+    <label>Password: </label>
+    <input type="password" />
+  </div>
+  <div style="padding: 10px">
+    <button
+      (click)="openLandingPage()"
+      style="background-color: #003871; color: #fff; padding: 8px"
+    >
+      Login
+    </button>
+  </div>
+</div>
+
+<div style="text-align: center" *ngIf="isLoggedin">
+  <h2 style="text-align: center; color: red">Home Page</h2>
+  <div>
+    <table style="border: 1px solid #000; margin: 0 auto">
+      <thead>
+        <tr style="border: 1px solid #000">
+          <th>Record Id</th>
+          <th>Created Date</th>
+          <th>Event Date</th>
+          <th>Time Spent</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let account of usersList; let i = index"
+          class="table-borders"
+          style="border: 1px solid #000"
+        >
+          <td style="border: 1px solid #000">{{ account.recordId }}</td>
+          <td style="border: 1px solid #000">{{ account.createdDate }}</td>
+          <td style="border: 1px solid #000">{{ account.eventDate }}</td>
+          <td style="border: 1px solid #000">{{ account.timeSpent }}</td>
+
+          <td style="border: 1px solid #000">
+            <button
+              (click)="editDetails(i)"
+              style="
+                background-color: #003871;
+                color: #fff;
+                padding: 5px;
+                margin: 5px;
+              "
+            >
+              update
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <button
+        (click)="addDetails()"
+        style="
+          background-color: #003871;
+          color: #fff;
+          padding: 8px;
+          margin: 10px;
+        "
+      >
+        Add New Entry
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isAdd || isEdit" style="margin: 10px">
+    <div style="padding: 10px">
+      <label>Record Id: </label>
+      <input type="text" [(ngModel)]="recordId" />
+    </div>
+    <div style="padding: 10px">
+      <label>Created Date: </label>
+      <input type="date" [(ngModel)]="createdDate" />
+    </div>
+    <div style="padding: 10px">
+      <label>Event Date: </label>
+      <input type="date" [(ngModel)]="eventDate" />
+    </div>
+    <div style="padding: 10px">
+      <label>Time Spent: </label>
+      <input type="text" placeholder="in hours" [(ngModel)]="timeSpent" />
+    </div>
+    <div>
+      <button
+        (click)="addOrUpdateDetails()"
+        style="background-color: #003871; color: #fff; padding: 8px"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

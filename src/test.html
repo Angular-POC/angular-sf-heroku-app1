@@ -16,6 +16,7 @@
       eventer(messageEvent, function (e) {
         var messageData =
           e.data instanceof Object ? e.data : JSON.parse(e.data);
+        console.log(messageData);
         if (messageData.type == "GET_SESSION_DETAILS") {
           if (messageData.data != null) {
             sendSessionDetails();
@@ -27,6 +28,8 @@
         sessionDetails = [
           {
             DeviceSessionId: "de545a27231d58f0e3720c243b1ed655903aea3a",
+            UserId: "s1234",
+            Username: "shreyas",
           },
         ];
         var obj = {
@@ -40,6 +43,11 @@
     </script>
   </head>
   <body>
-    <iframe id="childFrame" src="index.html"></iframe>
+    <iframe
+      id="childFrame"
+      src="index.html"
+      width="500px"
+      height="600px"
+    ></iframe>
   </body>
 </html>
