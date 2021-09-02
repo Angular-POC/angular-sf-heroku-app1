@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import testData from '../../assets/testData.json';
+// import testData from '../../assets/testData.json';
 import { BroadcasterService } from '../broadcaster.service';
 
 @Component({
@@ -121,7 +121,26 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   getJsonData() {
-    this.usersList = testData;
+    this.usersList = [
+      {
+        createdDate: '2021-06-15',
+        eventDate: '2021-06-05',
+        timeSpent: '0.5',
+        recordId: '1001',
+      },
+      {
+        createdDate: '2016-06-16',
+        eventDate: '2016-06-18',
+        timeSpent: '1.5',
+        recordId: '1002',
+      },
+      {
+        createdDate: '2016-06-16',
+        eventDate: '2016-06-16',
+        timeSpent: '1',
+        recordId: '1003',
+      },
+    ];
     localStorage.setItem('UserData', JSON.stringify(this.usersList));
     console.log(this.usersList);
   }
