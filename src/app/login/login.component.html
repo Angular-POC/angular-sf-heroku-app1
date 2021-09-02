@@ -56,11 +56,14 @@
             </button>
           </td>
         </tr>
+        <tr *ngIf="userList.length == 0">
+          No records found
+        </tr>
       </tbody>
     </table>
     <div>
       <button
-        (click)="addDetails()"
+        (click)="adsdDetails()"
         style="
           background-color: #003871;
           color: #fff;
