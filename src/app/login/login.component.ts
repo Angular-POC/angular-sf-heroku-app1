@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
   timeSpent: string;
   eventType: string = '';
   currentDate = new Date().toLocaleDateString('en-US');
+  currentTime = new Date().toLocaleTimeString('en-US');
+  tzoffset = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
+  localISOTime = new Date(Date.now() - this.tzoffset).toISOString();
+
   displayUserName: string = '';
   // tslint:disable-next-line: typedef
   constructor(public broadcaster: BroadcasterService) {
@@ -42,7 +46,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     switch (this.eventType) {
       case 'LOGIN':
         this.angularEvents = {
-          createdDate: this.changerDate(this.currentDate),
+          createdDate: this.localISOTime,
           DeviceSessionId: this.sessionDetails[0].DeviceSessionId,
           UserId: this.sessionDetails[0].UserId,
           Username: this.sessionDetails[0].Username,
@@ -51,13 +55,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
           PreviousPageUrl: ' ',
           RecordId: ' ',
           SourceIp: ' 165.225.122.179',
-          eventDate: this.changerDate(this.currentDate),
+          eventDate: this.localISOTime,
         };
         break;
       case 'ADD':
       case 'UPDATE':
+        console.log(typeof this.createdDate);
         this.angularEvents = {
-          createdDate: this.createdDate,
+          createdDate: new Date(this.createdDate).toISOString(),
           DeviceSessionId: this.sessionDetails[0].DeviceSessionId,
           UserId: this.sessionDetails[0].UserId,
           Username: this.sessionDetails[0].Username,
@@ -66,7 +71,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           PreviousPageUrl: 'login',
           RecordId: this.recordId,
           SourceIp: ' 165.225.122.179',
-          eventDate: this.eventDate,
+          eventDate: new Date(this.eventDate).toISOString(),
         };
         break;
     }
